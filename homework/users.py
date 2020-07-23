@@ -137,6 +137,7 @@ def main():
     new_user = request_data()
     reg_session.add(new_user)
     reg_session.commit()
+    reg.session.close()
     print("Данные приняты!")
 
 
