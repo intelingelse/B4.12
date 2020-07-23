@@ -137,7 +137,6 @@ def main():
     new_user = request_data()
     reg_session.add(new_user)
     reg_session.commit()
-    reg_session.close()
     print("Данные приняты!")
     print(f"Новый пользователь с ID: {new_user.id} создан!")
 
