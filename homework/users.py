@@ -139,6 +139,7 @@ def main():
     reg_session.commit()
     reg.session.close()
     print("Данные приняты!")
+    print(f"Новый пользователь с ID: {new_user.id} создан!")
 
 
 if __name__ == '__main__':
