@@ -10,10 +10,6 @@
 #
 # Все данные о пользователях сохраните в таблице user нашей базы данных sochi_athletes.sqlite3.
 
-
-
-
-import datetime
 import sqlalchemy as sql
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -83,14 +79,14 @@ def valid_gender(gender_string):
     """
     validates "gender" string
     :param gender_string:
-    :return: true or false
+    :return: True or False
     """
     return True if gender_string == "Female" or gender_string == "Male" else False
 
 
 def request_data():
     """
-    Запрашивает у пользователя данные и добавляет их в список users
+    Запрашивает у пользователя данные и добавляет их в объект users
     :return: returns user object
     """
     # выводим приветствие
