@@ -77,6 +77,15 @@ def valid_dob(dob_string):
         return True
 
 
+def valid_name(name):
+    """
+    validates "name" string
+    :param name: first name or last name
+    :return: True or False
+    """
+    return True if name else False
+
+
 def valid_gender(gender_string):
     """
     validates "gender" string
@@ -91,33 +100,39 @@ def request_data():
     Запрашивает у пользователя данные и добавляет их в объект users
     :return: returns user object
     """
-    # выводим приветствие
     print("Пожалуйста, введите данные\n")
+
     first_name = input("Ваше имя:\n>>>>  ")
+
+    while not valid_name(first_name):
+        print("Имя не может быть оставлено пустым")
+        first_name = input("Ваше имя:\n>>>>  ")
+
     last_name = input("Ваша фамилия:\n>>>>  ")
+
+    while not valid_name(first_name):
+        print("Фамилия не может быть оставлена пустой")
+        last_name = input("Ваше фамилия:\n>>>>  ")
+
     gender = input("Ваш пол (Male/Female)\n>>>>  ").capitalize()
 
     while not valid_gender(gender):
         print("Пол введен неверно!\n")
-
         gender = input("Введите Ваш пол (Male/Female)\n>>>>  ")
 
     email = input("Адрес Вашей электронной почты:\n>>>>  ")
 
     while not valid_email(email):
         print("Адрес почты введен неверно!\n")
-
         email = input("Введите Адрес Вашей электронной почты:\n>>>>  ").capitalize()
 
     birthdate = input("Введите Вашу дату рождения в формате: YYYY-mm-dd:\n>>>>  ")
 
     while not valid_dob(birthdate):
         print("Дата рождения указана неверно!\n")
-
         birthdate = input("Введите Вашу дату рождения в формате: YYYY-mm-dd:\n>>>>  ")
 
     height = float(input("Введите свой рост (в сантиметрах):\n>>>>  "))
-    height /= 100
 
     user = User(
         first_name=first_name,
@@ -125,7 +140,7 @@ def request_data():
         gender=gender,
         email=email,
         birthdate=birthdate,
-        height=height
+        height=height/100,
     )
     return user
 
