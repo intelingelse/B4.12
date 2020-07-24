@@ -120,7 +120,7 @@ def connect_db():
 
 def main():
     find_session = connect_db()
-    user = get_user_id()
+    user = get_user_id(session=find_session)
     user_full_name = user.first_name + " " + user.last_name
     height = user.height
     dob_string = user.birthdate
