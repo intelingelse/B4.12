@@ -65,6 +65,8 @@ def valid_dob(dob_string):
     :return: True or False
     """
     now = datetime.datetime.now()
+    # "now.year -123" - human being can't be older than 123 years so input that indicates that a user is older than
+    # 123 years is to be considered as a mistake
     if len(dob_string) != 10 \
             or dob_string.count("-") < 2 \
             or int(dob_string[0:4]) < now.year - 123 \
