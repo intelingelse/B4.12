@@ -9,7 +9,7 @@
 #     -рост
 #
 # Все данные о пользователях сохраните в таблице user нашей базы данных sochi_athletes.sqlite3.
-
+import datetime
 import sqlalchemy as sql
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
