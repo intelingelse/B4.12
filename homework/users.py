@@ -105,7 +105,7 @@ def request_data():
     while not valid_email(email):
         print("Адрес почты введен неверно!\n")
 
-        email = input("Введите Адрес Вашей электронной почты:\n>>>>  ")
+        email = input("Введите Адрес Вашей электронной почты:\n>>>>  ").capitalize()
 
     birthdate = input("Введите Вашу дату рождения в формате: YYYY-mm-dd:\n>>>>  ")
 
