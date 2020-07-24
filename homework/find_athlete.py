@@ -83,11 +83,35 @@ def find_closest_by_height(height, session):
     return found_athlete
 
 
+def get_user_id(session):
+    """
+    Производит поиск по введеному АйДи, если таковых нет то выводит ошибку и просит АйДи заново
+    пока не будет введен корректный Айди либо пользователь нажмет Ctrl + D
+    :param session: session obj
+    :return: user's object with following keys: first_name, last_name, height, birthdate)
+    """
+
+    uid = input("Введите ID пользователя:\n>>>>  ")
+    user_query = session.query(User).filter(uid == User.id).first()
+    try:
+        while not user_query:
+            print("Пользователь с таким ID не найден.")
+            uid = input("Введите ID существующего пользователя или нажмите CTRL+D, чтобы выйти:\n>>>>  ")
+            user_query = session.query(User.first_name, User.last_name, User.birthdate, User.height).filter(
+                uid == User.id).first()
+    except EOFError:
+        print("exiting...")
+        exit()
+
+    return user_query
+
+
 def connect_db():
     """
     Устанавливает соединение к базе данных, создает таблицы, если их еще нет и возвращает объект сессии
     :return: session object
     """
+
     engine = sql.create_engine(DB_PATH)
     Base.metadata.create_all(engine)
     session = sessionmaker(engine)
@@ -96,25 +120,11 @@ def connect_db():
 
 def main():
     find_session = connect_db()
-
-    uid = input("Введите ID пользователя:\n>>>>  ")
-
-    user_query = find_session.query(User).filter(uid == User.id).first()
-    try:
-        while not user_query:
-            print("Пользователь с таким ID не найден.")
-            uid = input("Введите ID существующего пользователя или нажмите CTRL+D, чтобы выйти:\n>>>>  ")
-            user_query = find_session.query(User.first_name, User.last_name, User.birthdate, User.height).filter(
-                uid == User.id).first()
-    except EOFError as e:
-        print("exiting...")
-        exit()
-
-    user_full_name = user_query.first_name + " " + user_query.last_name
-    height = user_query.height
-    dob_string = user_query.birthdate
-    del user_query
-
+    user = get_user_id()
+    user_full_name = user.first_name + " " + user.last_name
+    height = user.height
+    dob_string = user.birthdate
+    del user
     close_height_athlete = find_closest_by_height(height=height, session=find_session)
     close_birth_athlete = find_closest_by_dob(dob_string=dob_string, session=find_session)
     print(
